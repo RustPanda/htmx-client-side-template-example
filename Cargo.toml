@@ -1,0 +1,23 @@
+[package]
+name = "htmx-client-side-template-example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.5", features = ["macros"] }
+axum-embed = "0.1.0"
+futures = "0.3.30"
+rinja = "0.3.3"
+rinja_axum = "0.3.3"
+rust-embed = { version = "8.5.0", features = ["compression"] }
+serde_json = "1.0.128"
+tokio = { version = "1.40.0", features = [
+    "rt-multi-thread",
+    "macros",
+    "signal",
+    "net",
+    "sync",
+] }
+tokio-stream = { version = "0.1.16", features = ["sync"] }
+tower-http = { version = "0.5.2", features = ["cors", "timeout", "trace"] }
+tracing-subscriber = { version = "0.3.18", features = ["fmt"] }

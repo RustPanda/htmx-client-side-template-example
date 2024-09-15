@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏳️‍⚧️</text></svg>">
+    <script src="js/htmx.min.js"></script>
+    <script src="js/client-side-templates.js"></script>
+    <script src="js/nunjucks.min.js"></script>
+    <script src="js/sse.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <main hx-ext="client-side-templates">
+        <h1>Welcome to <span class="logo">&lt;<b>/</b>&gt;htm<b>x</b></span></h1>
+
+        <p>Hi, my name is <span class="name">Maria</span>. This is a very simple web application in Rust demonstrating
+            the use of htmx together
+            with axum.</p>
+
+        <button hx-post="/counter/decrement" hx-trigger="click" hx-swap="none">
+            Decrement
+        </button>
+        <button hx-post=" /counter/increment" hx-trigger="click" hx-swap="none">
+            Increment
+        </button>
+
+        <div hx-ext="sse" sse-connect="/counter/sse" sse-swap="message" nunjucks-template="counter-template">
+            {% include "counter.jinja" %}
+        </div>
+    </main>
+
+    <template id="counter-template">
+        <div>{{ include("counter.jinja")|safe }}</div>
+    </template>
+
+</body>
+
+</html>
