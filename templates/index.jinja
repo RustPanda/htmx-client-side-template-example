@@ -29,15 +29,13 @@
             Increment
         </button>
 
-        <div hx-ext="sse" sse-connect="/counter/sse" sse-swap="message" nunjucks-template="counter-template">
+        <div hx-ext="sse" sse-connect="/counter/sse" sse-swap="update" sse-close="close"
+            nunjucks-template="counter-template">
             {% include "counter.jinja" %}
         </div>
     </main>
-
-    <template id="counter-template">
-        <div>{{ include("counter.jinja")|safe }}</div>
-    </template>
-
 </body>
+
+{{ include_template("counter-template", "counter.jinja")|safe }}
 
 </html>
