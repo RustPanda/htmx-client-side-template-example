@@ -1,8 +1,10 @@
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use std::time::Duration;
 
 use axum::{
     extract::{FromRef, State},
-    response::{sse::Event, Sse},
+    http::header,
+    response::{sse::Event, IntoResponse, Sse},
     routing::{get, post},
     Json, Router,
 };
@@ -21,9 +23,15 @@ use tokio_stream::StreamExt as _;
 
 use rinja_axum::Template;
 
+use local_ip_address::local_ip;
+use qrcode_generator::QrCodeEcc;
+
 mod counter;
 mod include_ext;
 mod stop_signal;
+
+const IP: IpAddr = IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0));
+const PORT: u16 = 8080;
 
 #[derive(RustEmbed, Clone)]
 #[folder = "templates"]
@@ -58,6 +66,22 @@ async fn main() {
                 IndexTemplate {
                     counter: counter.value(),
                 }
+            }),
+        )
+        .route(
+            "/qrcode",
+            get(|| async move {
+                let local_ip = local_ip().unwrap();
+                let data = qrcode_generator::to_png_to_vec(
+                    format!("http://{local_ip}:{PORT}"),
+                    QrCodeEcc::Low,
+                    300,
+                )
+                .unwrap();
+
+                let mime = mime_guess::mime::PNG;
+
+                ([(header::CONTENT_TYPE, mime.as_ref())], data).into_response()
             }),
         )
         .nest(
@@ -122,7 +146,7 @@ async fn main() {
     #[cfg(debug_assertions)]
     let app = app.layer(tower_livereload::LiveReloadLayer::new());
 
-    let listener = TcpListener::bind("0.0.0.0:8080").await.unwrap();
+    let listener = TcpListener::bind(SocketAddr::new(IP, PORT)).await.unwrap();
 
     axum::serve(listener, app)
         .with_graceful_shutdown(shutdown_signal(stop_signal))

@@ -59,3 +59,20 @@ span {
     color: #72a1fd;
     font-weight: bold;
 }
+
+.qrcode {
+    position: absolute;
+    width: 10em;
+    height: 10em;
+    left: 8vh;
+    top: 8vh;
+    /* transform: translate(0, -50%); */
+    border-radius: 5px;
+    visibility: hidden;
+}
+
+@media screen and (min-width: 900px) {
+    .qrcode {
+        visibility: inherit;
+    }
+}
