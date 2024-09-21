@@ -18,7 +18,7 @@ where
                 // Преобразуем байты в строку и создаем Cow::Owned
                 String::from_utf8(bytes).map(Cow::Owned).unwrap_or_default()
             }
-            None => unimplemented!(),
+            None => Default::default(),
         }
     }
 

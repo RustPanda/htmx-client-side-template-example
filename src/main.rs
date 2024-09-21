@@ -99,9 +99,9 @@ async fn main() {
 
                         let stop = stream::once(async move {
                             let _ = stop_signal.subscribe().recv().await;
-
                             Ok(Event::default().event("close").data("Stream closed!"))
                         });
+
                         Sse::new(first.chain(stop.merge(stream))).keep_alive(
                             axum::response::sse::KeepAlive::new().text("keep-alive-text"),
                         )
