@@ -22,6 +22,11 @@
             the use of htmx together
             with axum.</p>
 
+        <div hx-ext="sse" sse-connect="/counter/sse" sse-swap="update" sse-close="close"
+            nunjucks-template="counter-template">
+            {% include "counter.jinja" %}
+        </div>
+
         <button hx-post="/counter/decrement" hx-trigger="click" hx-swap="none">
             Decrement
         </button>
@@ -29,10 +34,6 @@
             Increment
         </button>
 
-        <div hx-ext="sse" sse-connect="/counter/sse" sse-swap="update" sse-close="close"
-            nunjucks-template="counter-template">
-            {% include "counter.jinja" %}
-        </div>
     </main>
 </body>
 

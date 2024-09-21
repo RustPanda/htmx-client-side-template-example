@@ -119,6 +119,9 @@ async fn main() {
             CorsLayer::very_permissive(),
         ));
 
+    #[cfg(debug_assertions)]
+    let app = app.layer(tower_livereload::LiveReloadLayer::new());
+
     let listener = TcpListener::bind("0.0.0.0:8080").await.unwrap();
 
     axum::serve(listener, app)
