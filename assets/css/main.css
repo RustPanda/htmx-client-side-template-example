@@ -1,8 +1,18 @@
+:root {
+    --background-color: #030c15;
+    --accent-color-active: #0047d6;
+    --accent-color-1: #3366cc;
+    --accent-color-2: #72a1fd;
+    --accent-color-3: #9cb9f3;
+    --accent-color-4: #4e7cd8;
+    --font--color: #fcbe24;
+}
+
 body {
     background-image: url('/pattern-5.svg');
     background-repeat: repeat;
-    background-color: #030c15;
-    color: #fcbe24;
+    background-color: var(--background-color);
+    color: var(--font--color);
     padding: 0 24px;
     margin: 0;
     height: 100dvh;
@@ -18,24 +28,33 @@ main {
 }
 
 button {
-    background: #3366cc;
+    animation-play-state: paused;
+    background: var(--accent-color-1);
     color: white;
-    border: none;
     padding: 8px 12px;
     border-radius: 2px;
     font-weight: bold;
     font-size: 100%;
     margin: 3px;
+    border: none
 }
 
-button:hover {
+button:hover:enabled {
     cursor: pointer;
-    border: solid #9cb9f3;
-    margin: 0;
 }
 
-button:active {
-    background: #0047d6;
+button:active:enabled {
+    background: var(--accent-color-active);
+}
+
+button:disabled {
+    background: var(--accent-color-4);
+}
+
+button.htmx-request {
+    animation: waiting 0.6s infinite alternate;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
 }
 
 span {
@@ -52,11 +71,11 @@ span {
 
 .logo b {
     font-weight: inherit;
-    color: #3366cc;
+    color: var(--accent-color-1);
 }
 
 .name {
-    color: #72a1fd;
+    color: var(--accent-color-2);
     font-weight: bold;
 }
 
@@ -66,8 +85,8 @@ span {
     height: 10em;
     left: 8vh;
     top: 8vh;
-    /* transform: translate(0, -50%); */
-    border-radius: 5px;
+    border-radius: 0.5em;
+    border-bottom: solid var(--accent-color-1);
     visibility: hidden;
 }
 
@@ -75,4 +94,23 @@ span {
     .qrcode {
         visibility: inherit;
     }
+}
+
+@keyframes waiting {
+    0% {
+        transform: rotate(1)
+    }
+
+    33% {
+        transform: rotate(3deg);
+    }
+
+    66% {
+        transform: rotate(-3deg);
+    }
+
+    100% {
+        transform: rotate(1)
+    }
+
 }

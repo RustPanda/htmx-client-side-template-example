@@ -11,6 +11,7 @@ use axum::{
 use axum_embed::ServeEmbed;
 use counter::Counter;
 use include_ext::IncludeExt;
+use rand::Rng;
 use rust_embed::RustEmbed;
 use serde_json::json;
 use stop_signal::StopSignal;
@@ -89,11 +90,19 @@ async fn main() {
             Router::new()
                 .route(
                     "/increment",
-                    post(|State(counter): State<Counter>| async move { counter.increment() }),
+                    post(|State(counter): State<Counter>| async move {
+                        let secs: f32 = rand::thread_rng().gen_range(0.0..3.);
+                        tokio::time::sleep(Duration::from_secs_f32(secs)).await;
+                        counter.increment()
+                    }),
                 )
                 .route(
                     "/decrement",
-                    post(|State(counter): State<Counter>| async move { counter.decrement() }),
+                    post(|State(counter): State<Counter>| async move {
+                        let secs: f32 = rand::thread_rng().gen_range(0.0..3.);
+                        tokio::time::sleep(Duration::from_secs_f32(secs)).await;
+                        counter.decrement()
+                    }),
                 )
                 .route(
                     "/",

@@ -11,11 +11,13 @@
     <script src="js/client-side-templates.js"></script>
     <script src="js/nunjucks.min.js"></script>
     <script src="js/sse.js"></script>
+    <script src="https://unpkg.com/htmx-ext-disable-element@2.0.0/disable-element.js"></script>
     <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    {% include "qrcode.jinja" %}
+    <img class="qrcode" src="/qrcode">
+
     <main hx-ext="client-side-templates">
         <h1>Welcome to <span class="logo">&lt;<b>/</b>&gt;htm<b>x</b></span></h1>
 
@@ -28,12 +30,15 @@
             {% include "counter.jinja" %}
         </div>
 
-        <button hx-post="/counter/decrement" hx-trigger="click" hx-swap="none">
+        <button hx-post="/counter/decrement" hx-ext="disable-element" hx-disable-element="button" hx-trigger="click"
+            hx-swap="none">
             Decrement
         </button>
-        <button hx-post=" /counter/increment" hx-trigger="click" hx-swap="none">
+        <button hx-post=" /counter/increment" hx-ext="disable-element" hx-disable-element="button" hx-trigger="click"
+            hx-swap="none">
             Increment
         </button>
+        <span class="loader"></span>
 
     </main>
 </body>
