@@ -28,7 +28,6 @@ main {
 }
 
 button {
-    animation-play-state: paused;
     background: var(--accent-color-1);
     color: white;
     padding: 8px 12px;
@@ -36,25 +35,13 @@ button {
     font-weight: bold;
     font-size: 100%;
     margin: 3px;
-    border: none
+    border: none;
 }
+
 
 button:hover:enabled {
     cursor: pointer;
-}
-
-button:active:enabled {
-    background: var(--accent-color-active);
-}
-
-button:disabled {
-    background: var(--accent-color-4);
-}
-
-button.htmx-request {
-    animation: waiting 0.6s infinite alternate;
-    animation-delay: 0.5s;
-    animation-fill-mode: forwards;
+    box-shadow: 0 0 0 3px var(--accent-color-3);
 }
 
 span {
@@ -94,23 +81,4 @@ span {
     .qrcode {
         visibility: inherit;
     }
-}
-
-@keyframes waiting {
-    0% {
-        transform: rotate(1)
-    }
-
-    33% {
-        transform: rotate(3deg);
-    }
-
-    66% {
-        transform: rotate(-3deg);
-    }
-
-    100% {
-        transform: rotate(1)
-    }
-
 }

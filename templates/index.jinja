@@ -13,6 +13,9 @@
     <script src="js/sse.js"></script>
     <script src="https://unpkg.com/htmx-ext-disable-element@2.0.0/disable-element.js"></script>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.min.css" />
 </head>
 
 <body>
@@ -30,14 +33,17 @@
             {% include "counter.jinja" %}
         </div>
 
-        <button hx-post="/counter/decrement" hx-ext="disable-element" hx-disable-element="button" hx-trigger="click"
-            hx-swap="none">
+        <button class="ld-ext-right" hx-post="/counter/decrement" hx-ext="disable-element" hx-disable-element="button"
+            hx-trigger="click" hx-swap="none">
             Decrement
+            <div class="ld ld-ring ld-cycle"></div>
         </button>
-        <button hx-post=" /counter/increment" hx-ext="disable-element" hx-disable-element="button" hx-trigger="click"
-            hx-swap="none">
+        <button class="ld-ext-right" hx-post=" /counter/increment" hx-ext="disable-element" hx-disable-element="button"
+            hx-trigger="click" hx-swap="none">
             Increment
+            <div class="ld ld-ring ld-cycle"></div>
         </button>
+
 
     </main>
 </body>
