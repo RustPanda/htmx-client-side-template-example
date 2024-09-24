@@ -91,16 +91,18 @@ async fn main() {
                 .route(
                     "/increment",
                     post(|State(counter): State<Counter>| async move {
-                        let secs: f32 = rand::thread_rng().gen_range(0.0..3.);
-                        tokio::time::sleep(Duration::from_secs_f32(secs)).await;
+                        if rand::thread_rng().gen_range(0..10) > 7 {
+                            tokio::time::sleep(Duration::from_secs_f32(0.5)).await;
+                        }
                         counter.increment()
                     }),
                 )
                 .route(
                     "/decrement",
                     post(|State(counter): State<Counter>| async move {
-                        let secs: f32 = rand::thread_rng().gen_range(0.0..3.);
-                        tokio::time::sleep(Duration::from_secs_f32(secs)).await;
+                        if rand::thread_rng().gen_range(0..10) > 7 {
+                            tokio::time::sleep(Duration::from_secs_f32(0.5)).await;
+                        }
                         counter.decrement()
                     }),
                 )

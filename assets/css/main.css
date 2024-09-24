@@ -39,7 +39,7 @@ button {
 }
 
 
-button:hover:enabled {
+button:hover {
     cursor: pointer;
     box-shadow: 0 0 0 3px var(--accent-color-3);
 }
