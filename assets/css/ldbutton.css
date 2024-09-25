@@ -26,6 +26,7 @@
     opacity: 0;
     z-index: -1;
     transition: all .3s;
+    transition-delay: .1s;
     transition-timing-function: ease-in;
     animation-play-state: paused
 }
